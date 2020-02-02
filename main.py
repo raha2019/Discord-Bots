@@ -1,21 +1,31 @@
+# Actually Main
 import re
 import csv
 import discord
+import pandas as pd 
 from dotenv import load_dotenv
 
-def getPercentage():
-    print('percentage')
-
-class shareholder:
-    def __init__(self, value):
-        self.value = value
-        self.name = []
-        self.amountGiven = []
 
 load_dotenv()
 token = 'NjcyNjQ5NTIzMDIxMjE3Nzkz.XjOqew.TGUoyf_abVcrbWGBuB2AqQnQH74'
 
 client = discord.Client()
+
+
+df = pd.read_csv("data.csv") 
+print(f'finsihed read in the file')
+print(df)
+
+def calculate():
+    df = pd.read_csv("data.csv", index_col='Name') 
+    print(f'finished read in the file')
+    print(df)   
+    totalAmount = df['Amount'].sum()
+    print(totalAmount)
+    df['Percent'] = pd.eval('df.Amount/totalAmount*100')
+    print(df)
+    df.to_csv(r'percentage.csv')    
+    print(df)
 
 @client.event
 async def on_ready():
@@ -24,34 +34,59 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.author == client.user:
-        return
+        return 
 
     if message.content.startswith('!create'):
-        newMessage = message.content
         newMessage = message.content.split(' ', 1)[1]
-        # message = newMessage.split(", ")
-        # print(message)
         print(newMessage)
-        dollarMessage = newMessage.split(" ")
-        print(dollarMessage)
-
-        # personOne = shareholder("personOne")
-        # personOne.name.append([newMessage])
-        # print(personOne.name)
-        # with open('data.txt', 'w') as f:
-        #     for item in personOne.name:
-        #         f.write("%s\n" % item)
+        content = newMessage.split(" ")
+        name = content[0]
+        dollarMessage = content[1]
+        with open('data.csv', mode='a') as employee_file:
+            employee_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            employee_writer.writerow([name, dollarMessage])
+        calculate()
         await message.channel.send('Hello! ' + newMessage)
         
-
+    if message.content.startswith('!calculate'):
+        calculate()
     
-    if message.content.startswith('!change'):
-        print('testing')
+    if message.content.startswith('!change'): 
+        newMessage = message.content.split(' ', 1)[1]
+        print(newMessage)
+        content = newMessage.split(" ")
+        row = str(content[0])
+        print(row)
+        dollarMessage = int(content[1])
+        df = pd.read_csv('data.csv', index_col='Name')
+        df2 = df.loc[row, 'Amount'] = dollarMessage
+        print(df2)
+        df2.to_csv('data.csv')
+        calculate()
+        await message.channel.send(df)
 
-    if message.content.startswith('all'):
-        f=open("data.txt", "r")
-        if f.mode == 'r':
-            contents =f.read()
-            await message.channel.send(contents)
+    if message.content.startswith('!delete'):
+        newMessage = message.content.split(' ', 1)[1]
+        print(newMessage)
+        content = newMessage.split(" ")
+        information = int(content[0])
+        df = pd.read_csv("data.csv", index_col='Name') 
+        print(df)
+        df2 = (df.drop(df.index[information]))
+        df2.to_csv('data.csv')
+        calculate()
+        await message.channel.send(str(information) + ' has been deleted')
+    
+    if message.content.startswith('!total'):
+        # All Function
+        df = pd.read_csv('percentage.csv')
+        calculate()
+        await message.channel.send(df)
+        # Total Function
+        df = pd.read_csv("data.csv", index_col='Name') 
+        totalAmount = df['Amount'].sum()
+        print(totalAmount)
+        await message.channel.send("Total Amount " + str(totalAmount))
+
 
 client.run(token)
