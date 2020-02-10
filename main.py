@@ -8,8 +8,7 @@ from dotenv import load_dotenv
 while True: 
         
     load_dotenv()
-    token = 'NjcyNjQ5NTIzMDIxMjE3Nzkz.Xjc5bA.qCvw1LA3mEjw11cNMWMQ-LquJb8'
-
+    token = 'Ur Token'
     client = discord.Client()
 
 
@@ -49,7 +48,11 @@ while True:
                 employee_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                 employee_writer.writerow([name, dollarMessage])
             calculate()
-            await message.channel.send('Hello! ' + newMessage)
+            df = pd.read_csv("percentage.csv", index_col='Name') 
+            await message.channel.send(df)
+            df = pd.read_csv("data.csv", index_col='Name') 
+            totalAmount = df['Amount'].sum()
+            await message.channel.send("Total Amount " + str(totalAmount))
             
         if message.content.startswith('!calculate'):
             calculate()
@@ -60,13 +63,17 @@ while True:
             content = newMessage.split(" ")
             row = str(content[0])
             print(row)
+            row = int(row)
             dollarMessage = int(content[1])
             df = pd.read_csv('data.csv', index_col='Name')
-            df2 = df.loc[row, 'Amount'] = dollarMessage
-            print(df2)
-            df2.to_csv('data.csv')
+            df['Amount'][row] = dollarMessage
+            df.to_csv('data.csv')
             calculate()
+            df = pd.read_csv("percentage.csv", index_col='Name') 
             await message.channel.send(df)
+            df = pd.read_csv("data.csv", index_col='Name') 
+            totalAmount = df['Amount'].sum()
+            await message.channel.send("Total Amount " + str(totalAmount))
 
         if message.content.startswith('!delete'):
             newMessage = message.content.split(' ', 1)[1]
@@ -79,6 +86,9 @@ while True:
             df2.to_csv('data.csv')
             calculate()
             await message.channel.send(str(information) + ' has been deleted')
+            df = pd.read_csv("data.csv", index_col='Name') 
+            totalAmount = df['Amount'].sum()
+            await message.channel.send("Total Amount " + str(totalAmount))
         
         if message.content.startswith('!total'):
             # All Function
@@ -91,5 +101,28 @@ while True:
             print(totalAmount)
             await message.channel.send("Total Amount " + str(totalAmount))
 
-
+        if message.content.startswith('!all'): 
+            commands = """Commands: 
+                            !create: 
+                                Format:
+                                    !create Name Amount
+                                Example:
+                                    !create Vikram 500
+                            !change:
+                                Format:
+                                    !change Name Amount
+                                Example:
+                                    !change 0 500
+                            !delete:
+                                Format:
+                                    !delete index
+                                    index is the number next to each name on the right in the total message
+                                Example:
+                                    !delete 0
+                            !total:
+                                Format:
+                                    !total
+                                Example:
+                                    !total"""
+            await message.channel.send(commands)
     client.run(token)
