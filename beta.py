@@ -6,11 +6,10 @@ import pandas as pd
 from dotenv import load_dotenv
 
 while True: 
-        
     load_dotenv()
-    token = 'Ur Token'
-    client = discord.Client()
+    token = 'XXXXXXXXX'
 
+    client = discord.Client()
 
     df = pd.read_csv("data.csv") 
     print(f'finsihed read in the file')
@@ -39,6 +38,8 @@ while True:
             return 
 
         if message.content.startswith('!create'):
+            a = 0
+            while a < 2: a = a + 1; await message.delete()
             newMessage = message.content.split(' ', 1)[1]
             print(newMessage)
             content = newMessage.split(" ")
@@ -58,6 +59,7 @@ while True:
             calculate()
         
         if message.content.startswith('!change'): 
+            await message.delete()
             newMessage = message.content.split(' ', 1)[1]
             print(newMessage)
             content = newMessage.split(" ")
@@ -76,6 +78,7 @@ while True:
             await message.channel.send("Total Amount " + str(totalAmount))
 
         if message.content.startswith('!delete'):
+            await message.delete()
             newMessage = message.content.split(' ', 1)[1]
             print(newMessage)
             content = newMessage.split(" ")
@@ -91,6 +94,7 @@ while True:
             await message.channel.send("Total Amount " + str(totalAmount))
         
         if message.content.startswith('!total'):
+            await message.delete()
             # All Function
             df = pd.read_csv('percentage.csv')
             calculate()
@@ -102,6 +106,7 @@ while True:
             await message.channel.send("Total Amount " + str(totalAmount))
 
         if message.content.startswith('!all'): 
+            await message.delete()
             commands = """Commands: 
                             !create: 
                                 Format:
@@ -125,4 +130,6 @@ while True:
                                 Example:
                                     !total"""
             await message.channel.send(commands)
+            
+        
     client.run(token)
