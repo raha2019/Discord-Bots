@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 while True: 
     load_dotenv()
-    token = 'XXXXXXXXX'
+    token = 'XXXXXX'
 
     client = discord.Client()
 
@@ -38,8 +38,7 @@ while True:
             return 
 
         if message.content.startswith('!create'):
-            a = 0
-            while a < 2: a = a + 1; await message.delete()
+            await message.delete()
             newMessage = message.content.split(' ', 1)[1]
             print(newMessage)
             content = newMessage.split(" ")

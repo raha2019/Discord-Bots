@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 while True: 
     load_dotenv()
-    token = 'XXXXXXXXX'
+    token = 'XXXXXX'
 
     client = discord.Client()
 
@@ -26,6 +26,9 @@ while True:
         df.to_csv(r'percentage.csv')    
         print(df)
 
+
+    #Bot
+
     @client.event
     async def on_ready():
         print(f'{client.user} has connected to Discord!')
@@ -38,8 +41,8 @@ while True:
             return 
 
         if message.content.startswith('!create'):
-            a = 0
-            while a < 2: a = a + 1; await message.delete()
+            # a = 0
+            # while a < 2: a = a + 1; await message.delete()
             newMessage = message.content.split(' ', 1)[1]
             print(newMessage)
             content = newMessage.split(" ")
@@ -94,7 +97,6 @@ while True:
             await message.channel.send("Total Amount " + str(totalAmount))
         
         if message.content.startswith('!total'):
-            await message.delete()
             # All Function
             df = pd.read_csv('percentage.csv')
             calculate()
