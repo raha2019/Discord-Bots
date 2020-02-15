@@ -11,6 +11,8 @@ def writeVersion():
     version = changeLogVersion.read()
     intVersion = int(version)
     intVersion = intVersion + 1
+    changeLogVersion.close()
+    changeLogVersion = open("version.txt", "w")
     strVersion = str(intVersion)
     changeLogVersion.write(strVersion)
     changeLogVersion.close()
