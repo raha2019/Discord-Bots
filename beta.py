@@ -41,8 +41,6 @@ while True:
             return 
 
         if message.content.startswith('!create'):
-            # a = 0
-            # while a < 2: a = a + 1; await message.delete()
             newMessage = message.content.split(' ', 1)[1]
             print(newMessage)
             content = newMessage.split(" ")
@@ -100,12 +98,13 @@ while True:
             # All Function
             df = pd.read_csv('percentage.csv')
             calculate()
+            df = df.to_string()
             await message.channel.send(df)
             # Total Function
             df = pd.read_csv("data.csv", index_col='Name') 
             totalAmount = df['Amount'].sum()
             print(totalAmount)
-            await message.channel.send("Total Amount " + str(totalAmount))
+            await message.channel.send(" Total Amount " + str(totalAmount))
 
         if message.content.startswith('!all'): 
             await message.delete()

@@ -1,0 +1,36 @@
+**Changelog - 2020-02-13 - 20:50:08**
+hey
+**Changelog - 2020-02-13 - 20:50:14**
+testing
+**Changelog - 2020-02-13 - 20:51:03**
+testing
+**Changelog - 2020-02-13 - 20:51:10**
+-testing
+**Changelog - 2020-02-13 - 20:52:42**
+-testing again
+**Changelog - 2020-02-13 - 20:53:06**
+-testing again
+**Changelog - 2020-02-13 - 22:11:21**
+gaf
+**Changelog - 2020-02-13 - 22:11:29**
+has
+**Changelog v- 4 - 2020-02-14 - 14:25:54 EST**
+-added number
+**Changelog v-5 - 14/02/2020 - 14:28:52 EST**
+-changed formatting of date
+**Changelog v6 - 14/02/2020 - 14:29:26 EST**
+-Finally Finished with changelog
+**Changelog v7 - 14/02/2020 - 15:49:43 EST**
+yes
+**Changelog v8 - 14/02/2020 - 15:54:19 EST**
+-Blake does this work
+**Changelog v9 - 14/02/2020 - 15:54:55 EST**
+-Fixed the string business hopefully
+**Changelog v10 - 14/02/2020 - 15:55:09 EST**
+-confirmed string business is fixed
+**Changelog v11 - 14/02/2020 - 16:42:31 EST**
+-added delete message
+**Changelog v12 - 14/02/2020 - 16:43:49 EST**
+-ready to be deployed
+-Have to design logo
+-Version History will soon be cleared
