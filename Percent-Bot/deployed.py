@@ -4,7 +4,7 @@ import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
 
-client = commands.Bot(command_prefix= '!')
+client = commands.Bot(command_prefix= '.')
 
 df = pd.read_csv("data.csv") 
 print(f'finished read in the file')
@@ -50,6 +50,7 @@ async def create(ctx, name: str, amount: int):
     df = pd.read_csv("data.csv", index_col='Name') 
     totalAmount = df['Amount'].sum()
     print(totalAmount)
+    totalAmount = "%.2f" % totalAmount
     await ctx.send(" Total Amount " + str(totalAmount))
     channel = client.get_channel(675482064493084682)
     await channel.send('{} created {} who has {} dollars'.format(ctx.author.mention, name, amount))
@@ -78,6 +79,7 @@ async def delete(ctx, index: int):
     df = pd.read_csv("data.csv", index_col='Name') 
     totalAmount = df['Amount'].sum()
     print(totalAmount)
+    totalAmount = "%.2f" % totalAmount
     await ctx.send(" Total Amount " + str(totalAmount))
     channel = client.get_channel(675482064493084682)
     await channel.send('{} delete {}'.format(ctx.author.mention, index))
@@ -102,6 +104,7 @@ async def total(ctx):
     df = pd.read_csv("data.csv", index_col='Name') 
     totalAmount = df['Amount'].sum()
     print(totalAmount)
+    totalAmount = "%.2f" % totalAmount
     await ctx.send(" Total Amount " + str(totalAmount))
     channel = client.get_channel(675482064493084682)
     await channel.send('{} called Total Function'.format(ctx.author.mention))
@@ -131,6 +134,7 @@ async def change(ctx, index: int, amount: int):
     df = pd.read_csv("data.csv", index_col='Name') 
     totalAmount = df['Amount'].sum()
     print(totalAmount)
+    totalAmount = "%.2f" % totalAmount
     await ctx.send(" Total Amount " + str(totalAmount))
     channel = client.get_channel(675482064493084682)
     await channel.send('{} Changed {} to {}'.format(ctx.author.mention, row, amount))
@@ -155,6 +159,7 @@ async def earnings(ctx, amount: float):
     df = pd.read_csv("data.csv", index_col='Name') 
     totalAmount = df['Amount'].sum()
     print(totalAmount)
+    totalAmount = "%.2f" % totalAmount
     await ctx.send(" Total Amount " + str(totalAmount))
     channel = client.get_channel(675482064493084682)
     await channel.send('{} changed total amount to {}'.format(ctx.author.mention, amount))
