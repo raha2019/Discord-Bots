@@ -23,4 +23,4 @@ async def clear_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
         await ctx.send("You cant do that!")
 
-client.run('Njc2OTMwNTQ1NjUzMTIxMDQx.XknbIA.SoMNxczEQ7MBpuJ-NUZAk9-x17s')
+client.run('XXXXXX')

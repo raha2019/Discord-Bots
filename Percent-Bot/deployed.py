@@ -51,6 +51,7 @@ async def create(ctx, name: str, amount: int):
     totalAmount = df['Amount'].sum()
     print(totalAmount)
     await ctx.send(" Total Amount " + str(totalAmount))
+    channel = client.get_channel(675482064493084682)
     await channel.send('{} created {} who has {} dollars'.format(ctx.author.mention, name, amount))
 
 @client.command()
@@ -78,12 +79,13 @@ async def delete(ctx, index: int):
     totalAmount = df['Amount'].sum()
     print(totalAmount)
     await ctx.send(" Total Amount " + str(totalAmount))
+    channel = client.get_channel(675482064493084682)
     await channel.send('{} delete {}'.format(ctx.author.mention, index))
 
 @client.command()
 async def total(ctx):
     await ctx.channel.purge(limit=5)
-    await ctx.message.delete()
+    # await ctx.message.delete()
     df = pd.read_csv("data.csv", index_col='Name') 
     print(f'finished read in the file')
     print(df)   
@@ -101,6 +103,7 @@ async def total(ctx):
     totalAmount = df['Amount'].sum()
     print(totalAmount)
     await ctx.send(" Total Amount " + str(totalAmount))
+    channel = client.get_channel(675482064493084682)
     await channel.send('{} called Total Function'.format(ctx.author.mention))
 
 @client.command()
@@ -129,6 +132,7 @@ async def change(ctx, index: int, amount: int):
     totalAmount = df['Amount'].sum()
     print(totalAmount)
     await ctx.send(" Total Amount " + str(totalAmount))
+    channel = client.get_channel(675482064493084682)
     await channel.send('{} Changed {} to {}'.format(ctx.author.mention, row, amount))
 
 
@@ -156,4 +160,4 @@ async def earnings(ctx, amount: int):
     await channel.send('{} changed total amount to {}'.format(ctx.author.mention, amount))
 
 
-client.run('Njc2OTMwNTQ1NjUzMTIxMDQx.XknbIA.SoMNxczEQ7MBpuJ-NUZAk9-x17s')
+client.run('XXXXXX')
