@@ -20,7 +20,8 @@ def writeVersion():
 
 @client.event
 async def on_ready():
-    print('Bot has connected')
+    print(f'{client.user} has connected to Discord!')
+    await client.change_presence(activity=discord.Game(name='Logging all your changes'))
 
 @client.command()
 async def log(ctx, *, arg):

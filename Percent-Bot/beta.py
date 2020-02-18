@@ -26,9 +26,6 @@ while True:
         df.to_csv(r'percentage.csv')    
         print(df)
 
-
-    #Bot
-
     @client.event
     async def on_ready():
         print(f'{client.user} has connected to Discord!')
@@ -41,6 +38,7 @@ while True:
             return 
 
         if message.content.startswith('!create'):
+            await message.delete()
             newMessage = message.content.split(' ', 1)[1]
             print(newMessage)
             content = newMessage.split(" ")
@@ -95,16 +93,16 @@ while True:
             await message.channel.send("Total Amount " + str(totalAmount))
         
         if message.content.startswith('!total'):
+            # await message.delete()
             # All Function
             df = pd.read_csv('percentage.csv')
             calculate()
-            df = df.to_string()
             await message.channel.send(df)
             # Total Function
             df = pd.read_csv("data.csv", index_col='Name') 
             totalAmount = df['Amount'].sum()
             print(totalAmount)
-            await message.channel.send(" Total Amount " + str(totalAmount))
+            await message.channel.send("Total Amount " + str(totalAmount))
 
         if message.content.startswith('!all'): 
             await message.delete()
