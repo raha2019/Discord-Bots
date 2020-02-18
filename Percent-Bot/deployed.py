@@ -137,9 +137,9 @@ async def change(ctx, index: int, amount: int):
 
 
 @client.command()
-async def earnings(ctx, amount: int):
+async def earnings(ctx, amount: float):
     await ctx.channel.purge(limit=3)
-    amount = int(amount)
+    amount = float(amount)
     def earnings(earning):
         return float(earning / 100 * amount)
     df = pd.read_csv('percentage.csv', index_col='Name')
