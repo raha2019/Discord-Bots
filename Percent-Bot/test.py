@@ -10,6 +10,26 @@ df = pd.read_csv("data.csv")
 print(f'finished read in the file')
 print(df)
 
+def calculate():
+    df = pd.read_csv("data.csv", index_col='Name') 
+    print(f'finished read in the file')
+    print(df)   
+    totalAmount = df['Amount'].sum()
+    print(totalAmount)
+    df['Percent'] = pd.eval('df.Amount/totalAmount*100')
+    print(df)
+    df.to_csv(r'percentage.csv')    
+    print(df)
+    df = pd.read_csv('percentage.csv')
+    df = df.to_string()
+    await ctx.send(df)
+    # Total Function
+    df = pd.read_csv("data.csv", index_col='Name') 
+    totalAmount = df['Amount'].sum()
+    print(totalAmount)
+    totalAmount = "%.2f" % totalAmount
+    await ctx.send(" Total Amount " + str(totalAmount))
+
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
