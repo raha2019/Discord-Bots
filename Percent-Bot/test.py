@@ -6,11 +6,19 @@ from discord.ext import commands
 
 client = commands.Bot(command_prefix= '.')
 
+def read_token():
+    with open("token.txt", "r") as f:
+        lines = f.readlines()
+        return lines[0].strip()
+
+token = read_token()
+
 df = pd.read_csv("data.csv") 
 print(f'finished read in the file')
 print(df)
 
 def calculate():
+    print("This works")
     df = pd.read_csv("data.csv", index_col='Name') 
     print(f'finished read in the file')
     print(df)   
@@ -20,15 +28,14 @@ def calculate():
     print(df)
     df.to_csv(r'percentage.csv')    
     print(df)
-    df = pd.read_csv('percentage.csv')
-    df = df.to_string()
-    await ctx.send(df)
     # Total Function
     df = pd.read_csv("data.csv", index_col='Name') 
     totalAmount = df['Amount'].sum()
     print(totalAmount)
     totalAmount = "%.2f" % totalAmount
-    await ctx.send(" Total Amount " + str(totalAmount))
+    df = pd.read_csv('percentage.csv')
+    df = df.to_string()
+    return df, totalAmount; 
 
 @client.event
 async def on_ready():
@@ -107,24 +114,8 @@ async def delete(ctx, index: int):
 @client.command()
 async def total(ctx):
     await ctx.channel.purge(limit=5)
-    # await ctx.message.delete()
-    df = pd.read_csv("data.csv", index_col='Name') 
-    print(f'finished read in the file')
-    print(df)   
-    totalAmount = df['Amount'].sum()
-    print(totalAmount)
-    df['Percent'] = pd.eval('df.Amount/totalAmount*100')
-    print(df)
-    df.to_csv(r'percentage.csv')    
-    print(df)
-    df = pd.read_csv('percentage.csv')
-    df = df.to_string()
+    df, totalAmount = calculate()
     await ctx.send(df)
-    # Total Function
-    df = pd.read_csv("data.csv", index_col='Name') 
-    totalAmount = df['Amount'].sum()
-    print(totalAmount)
-    totalAmount = "%.2f" % totalAmount
     await ctx.send(" Total Amount " + str(totalAmount))
     channel = client.get_channel(675482064493084682)
     await channel.send('{} called Total Function'.format(ctx.author.mention))
@@ -185,4 +176,4 @@ async def earnings(ctx, amount: float):
     await channel.send('{} changed total amount to {}'.format(ctx.author.mention, amount))
 
 
-client.run('XXXXXX')
+client.run(token)
