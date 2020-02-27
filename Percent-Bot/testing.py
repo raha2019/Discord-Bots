@@ -3,6 +3,11 @@ import csv
 import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
+from yahoo_fin import stock_info as si
+
+
+print(si.get_live_price("qqq"))
+
 
 client = commands.Bot(command_prefix= '.')
 
@@ -13,13 +18,6 @@ def read_token():
 
 token = read_token()
 
-def testing():
-    hey = 2 + 5
-    print('hey')
-    print('This works')
-
-# testing = testing()
-
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
@@ -27,7 +25,6 @@ async def on_ready():
 
 @client.command()
 async def test(ctx, arg):
-    testing()
     await ctx.send(testing)
     await ctx.send(arg)
 
